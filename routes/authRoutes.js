@@ -1,5 +1,5 @@
 const express = require("express"); // Import Express
-const { registerUser, loginUser, logoutUser, getUserInfo } = require("../controllers/authcontroller"); // Import controller functions
+const { registerUser, loginUser, logoutUser, getUserInfo } = require("../controllers/authController"); // Import controller functions
 const verifyToken = require("../middleware/authMiddleware"); // Import middleware for token verification
 
 const router = express.Router(); // Create a router instance
