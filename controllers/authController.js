@@ -62,5 +62,5 @@ const getUserInfo = async (req, res) => {
   }
 };
 
-// Export the controller functions
+// Export Controller Functions
 module.exports = { registerUser, loginUser, logoutUser, getUserInfo };
