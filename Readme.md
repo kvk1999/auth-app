@@ -111,7 +111,7 @@ Welcome to the **User Authentication API**! This API allows users to register, l
    }
    ```
 
-#### 3. **Logout User**
+### 3. **Logout User**
 Logs out the authenticated user by invalidating their token.
 
 - **URL:** `/api/auth/logout`
