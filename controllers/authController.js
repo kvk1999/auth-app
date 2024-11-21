@@ -10,23 +10,17 @@ const generateToken = (user) => {
 };
 
 // User Registration
-exports.registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    // Check if the user already exists
     const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({ message: "User already exists" });
-    }
+    if (userExists) return res.status(400).json({ message: "User already exists" });
 
-    // Hash the user's password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create the new user
     const user = await User.create({ username, email, password: hashedPassword });
-
     res.status(201).json({ message: "User registered successfully", user });
   } catch (error) {
     res.status(500).json({ message: "Error registering user", error: error.message });
@@ -34,23 +28,16 @@ exports.registerUser = async (req, res) => {
 };
 
 // User Login
-exports.loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find the user by email
     const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
+    if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
-    // Compare the provided password with the hashed password
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
+    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-    // Generate a JWT token
     const token = generateToken(user);
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {
@@ -59,17 +46,15 @@ exports.loginUser = async (req, res) => {
 };
 
 // User Logout
-exports.logoutUser = (req, res) => {
+const logoutUser = (req, res) => {
   res.status(200).json({ message: "Logout successful" });
 };
 
 // Get User Info
-exports.getUserInfo = async (req, res) => {
+const getUserInfo = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password"); // Exclude password
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     res.status(200).json(user);
   } catch (error) {
@@ -77,4 +62,5 @@ exports.getUserInfo = async (req, res) => {
   }
 };
 
+// Export the controller functions
 module.exports = { registerUser, loginUser, logoutUser, getUserInfo };
