@@ -111,7 +111,23 @@ Welcome to the **User Authentication API**! This API allows users to register, l
    }
    ```
 
-### 3. **Get User Info**
+#### 3. **Logout User**
+Logs out the authenticated user by invalidating their token.
+
+- **URL:** `/api/auth/logout`
+- **Method:** `POST`
+- **Headers:** 
+  - `Authorization: Bearer <token>`
+- **Response:**
+  - **Success:** 
+    ```json
+    {
+      "message": "User logged out successfully"
+    }
+    ```
+
+
+### 4. **Get User Info**
    **Request:** (Authorization header with Bearer token required)
    ```http
    GET /api/auth/me
@@ -162,11 +178,7 @@ You can test the API endpoints using tools like:
 
 ## Postman Documentation
 
-```
-
 [Here's the Postman API documentation](https://documenter.getpostman.com/view/38564233/2sAYBSjCv5)
-
-```
 
 
 ## Author
