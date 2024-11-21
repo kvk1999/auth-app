@@ -1,17 +1,14 @@
-const express = require("express");
-const {
-  registerUser,
-  loginUser,
-  logoutUser,
-  getUserInfo,
-} = require("../controllers/authcontroller");
-const verifyToken = require("../middleware/authMiddleware");
+const express = require("express"); // Import Express
+const { registerUser, loginUser, logoutUser, getUserInfo } = require("../controllers/authcontroller"); // Import controller functions
+const verifyToken = require("../middleware/authMiddleware"); // Import middleware for token verification
 
-const router = express.Router();
+const router = express.Router(); // Create a router instance
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
-router.post("/logout", verifyToken, logoutUser);
-router.get("/me", verifyToken, getUserInfo);
+// Define routes and map to corresponding controller functions
+router.post("/register", registerUser);        // POST /api/auth/register
+router.post("/login", loginUser);             // POST /api/auth/login
+router.post("/logout", verifyToken, logoutUser); // POST /api/auth/logout (protected route)
+router.get("/me", verifyToken, getUserInfo);  // GET /api/auth/me (protected route)
 
+// Export the router
 module.exports = router;
