@@ -4,21 +4,14 @@ const {
   loginUser,
   logoutUser,
   getUserInfo,
-} = require("../controllers/authcontroller"); // Ensure this path is correct
-const verifyToken = require("../middleware/authMiddleware"); // Ensure this middleware is implemented
+} = require("../controllers/authcontroller");
+const verifyToken = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-// Route for user registration
-router.post("/register", registerUser); // POST /api/auth/register
-
-// Route for user login
-router.post("/login", loginUser); // POST /api/auth/login
-
-// Route for user logout (protected)
-router.post("/logout", verifyToken, logoutUser); // POST /api/auth/logout
-
-// Route for getting user information (protected)
-router.get("/me", verifyToken, getUserInfo); // GET /api/auth/me
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.post("/logout", verifyToken, logoutUser);
+router.get("/me", verifyToken, getUserInfo);
 
 module.exports = router;
